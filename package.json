@@ -1,0 +1,11 @@
+{
+  "name": "ticTacToe",
+  "version": "1.0.0",
+  "author": "Simon Huang",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
+  }
+}
