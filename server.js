@@ -24,10 +24,11 @@ var renderBoard = function() {
 };
 
 var checkForWinner = function() {
-  // check rows
   for (var i = 0; i < board.length; i++) {
     var currentRowP1 = true;
     var currentRowP2 = true;
+    var currentColP1 = true;
+    var currentColP2 = true;
     for (var j = 0; j < board.length; j++) {
       if (board[i][j] !== 'O') {
         currentRowP1 = false;
@@ -35,16 +36,6 @@ var checkForWinner = function() {
       if (board[i][j] !== 'X') {
         currentRowP2 = false;
       }
-    }
-    if (currentRowP1 === true || currentRowP2 === true) {
-      return true;
-    }
-  }
-  // check column
-  for (var i = 0; i < board[0].length; i++) {
-    var currentColP1 = true;
-    var currentColP2 = true;
-    for (var j = 0; j < board.length; j++) {
       if (board[j][i] !== 'O') {
         currentColP1 = false;
       }
@@ -52,7 +43,9 @@ var checkForWinner = function() {
         currentColP2 = false;
       }
     }
-    if (currentColP1 === true || currentColP2 === true) {
+    if (currentRowP1 === true || currentRowP2 === true || 
+      currentColP1 === true || currentColP2 === true) {
+      
       return true;
     }
   }
@@ -79,6 +72,7 @@ stdin.addListener("data", function(d) {
     process.exit();
   } else if (gameOver && input === 'y') {
     console.log('New Game')
+    gameOver = false;
     board = [[0,0,0],[0,0,0],[0,0,0]];
     player1 = !player1;
     player1 === true ? console.log('Player 1 \'s turn') : console.log('Player 2 \'s turn')
@@ -103,6 +97,7 @@ stdin.addListener("data", function(d) {
   } else if (checkForFullBoard()) {
     console.log('Tie Game!');
     renderBoard();
+    gameOver = true;
     console.log('Play again? y/n')
     return;
   }
